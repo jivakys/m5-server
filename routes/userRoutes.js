@@ -66,4 +66,17 @@ userRouter.post("/login", async (req, res) => {
   }
 });
 
+userRouter.get("/", async (req, res) => {
+  try {
+    const user = await userModel.find();
+    res.status(201).send(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Internal server error",
+      error,
+    });
+  }
+});
+
 module.exports = { userRouter };
