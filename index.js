@@ -6,6 +6,7 @@ const { empRouter } = require("./routes/empRoutes");
 const app = express();
 app.use(express.json());
 app.use(cors());
+// cors
 require("dotenv").config();
 
 app.use("/user", userRouter);
