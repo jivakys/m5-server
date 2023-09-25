@@ -38,7 +38,7 @@ empRouter.put("/:id", async (req, res) => {
     const emp = await empModel.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    res.status(204).send({ msg: "employee update", emp });
+    res.status(201).send({ msg: "employee update", emp });
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -50,7 +50,7 @@ empRouter.put("/:id", async (req, res) => {
 
 empRouter.delete("/:id", async (req, res) => {
   try {
-    const emp = await empModel.findByIdAndDelete(req.params.id);
+    const emp = await empModel.findByIdAndRemove(req.params.id);
     res.status(204).send({ msg: "employee Deleted" });
   } catch (error) {
     console.log(error);
@@ -78,7 +78,7 @@ empRouter.get("/filter", async (req, res) => {
 empRouter.get("/sort", async (req, res) => {
   try {
     const order = req.query.order === "desc" ? -1 : 1;
-    const emp = await empModel.find().sort({ data: order });
+    const emp = await empModel.find().sort({ salary: order });
     res.status(201).send(emp);
   } catch (error) {
     console.log(error);
@@ -89,7 +89,7 @@ empRouter.get("/sort", async (req, res) => {
   }
 });
 
-empRouter.get("/serach", async (req, res) => {
+empRouter.get("/search", async (req, res) => {
   try {
     const firstname = req.query.firstname;
     const emp = await empModel.find({
